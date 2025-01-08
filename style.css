@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.task {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+.task-input {
+  padding: 5px 5px;
+}
+.add-task {
+  padding: 5px 10px;
+}

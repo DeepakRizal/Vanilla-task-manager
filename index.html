@@ -8,12 +8,17 @@
   </head>
   <body>
     <div class="container">
-      <div class="task-adder-box">
-        <input type="text" class="task-adder" />
-        <button>Add Task</button>
-      </div>
-      <div class="task-list">
-        <div class="task">This is the task</div>
+      <div class="task-manager">
+        <div class="task-adder-box">
+          <input type="text" class="task-input" />
+          <button class="add-task">Add Task</button>
+        </div>
+        <div class="task-list">
+          <div class="task">
+            <p>This is the task</p>
+            <button class="delete">Delete</button>
+          </div>
+        </div>
       </div>
     </div>
     <script src="script.js"></script>
