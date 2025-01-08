@@ -2,6 +2,8 @@ const taskInput = document.querySelector(".task-input");
 const addTask = document.querySelector(".add-task");
 const taskList = document.querySelector(".task-list");
 
+const deleteTask = document.querySelector(".delete");
+
 let task = "";
 
 addTask.addEventListener("click", () => {
@@ -27,4 +29,10 @@ addTask.addEventListener("click", () => {
   taskList.appendChild(newTaskElement);
 
   taskInput.value = "";
+});
+
+deleteTask.addEventListener("click", (e) => {
+  const elementToBeDeleted = e.currentTarget.parentNode;
+  console.log(elementToBeDeleted);
+  elementToBeDeleted.remove();
 });
