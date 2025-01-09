@@ -3,13 +3,21 @@ const addTask = document.querySelector(".add-task");
 const taskList = document.querySelector(".task-list");
 
 const deleteTask = document.querySelector(".delete");
+const categoriesForm = document.querySelector(".categories");
 
-let task = "";
+let task = {
+  task: "",
+  categories: "",
+};
+
+let tasks = [];
 
 addTask.addEventListener("click", () => {
-  task = taskInput.value;
+  task.task = taskInput.value;
 
-  if (task.trim() === "") {
+  console.log(task);
+
+  if (task.task.trim() === "") {
     alert("Please input your task");
   }
 
@@ -17,7 +25,7 @@ addTask.addEventListener("click", () => {
   newTaskElement.classList.add("task");
 
   const taskText = document.createElement("p");
-  taskText.textContent = task;
+  taskText.textContent = task.task;
 
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("delete");
@@ -31,8 +39,24 @@ addTask.addEventListener("click", () => {
   taskInput.value = "";
 });
 
+taskList.addEventListener("click", function (event) {
+  if (event.target.classList.contains("delete")) {
+    const taskItem = event.target.closest(".task");
+    taskItem.remove();
+  }
+});
+
 deleteTask.addEventListener("click", (e) => {
   const elementToBeDeleted = e.currentTarget.parentNode;
+
   console.log(elementToBeDeleted);
+
   elementToBeDeleted.remove();
+});
+
+categoriesForm.addEventListener("change", (event) => {
+  if (event.target.type === "radio") {
+    const selectedCategory = event.target.value;
+    task.categories = selectedCategory;
+  }
 });

@@ -11,6 +11,12 @@
   justify-content: center;
 }
 
+.task-manager {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 20px 25px;
+  border-radius: 20px;
+}
+
 .task-list {
   display: flex;
   flex-direction: column;
@@ -23,7 +29,14 @@
 }
 
 .task-input {
-  padding: 5px 5px;
+  padding: 8px 8px;
+}
+
+.task-adder-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
 }
 .add-task {
   padding: 5px 10px;
