@@ -2,10 +2,11 @@ const taskInput = document.querySelector(".task-input");
 const addTask = document.querySelector(".add-task");
 const taskList = document.querySelector(".task-list");
 const categoriesForm = document.querySelector(".categories");
+const filterCategory = document.querySelector(".filter-category");
 
 let task = {
   task: "",
-  categories: "",
+  categories: "All",
 };
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -72,4 +73,28 @@ categoriesForm.addEventListener("change", (event) => {
     const selectedCategory = event.target.value;
     task.categories = selectedCategory;
   }
+});
+
+//filter
+filterCategory.addEventListener("change", (e) => {
+  taskList.innerHTML = "";
+  const tasksToBeShown = tasks.filter(
+    (task) => task.categories === e.target.value
+  );
+  tasksToBeShown.forEach((task) => {
+    const newTaskElement = document.createElement("div");
+    newTaskElement.classList.add("task");
+
+    const taskText = document.createElement("p");
+    taskText.textContent = `${task.task}`;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete");
+    deleteButton.textContent = "Delete";
+
+    newTaskElement.appendChild(taskText);
+    newTaskElement.appendChild(deleteButton);
+
+    taskList.appendChild(newTaskElement);
+  });
 });
