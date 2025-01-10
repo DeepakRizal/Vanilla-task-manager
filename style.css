@@ -31,17 +31,27 @@
   margin: 5px;
   display: flex;
   justify-content: space-between;
+  gap: 20px;
   align-items: center;
   background-color: #e6e6e6;
   border-radius: 5px;
-  padding: 5px;
+  padding: 5px 10px;
   font-family: "Open Sans", serif;
 }
 
 .text-content {
   padding: 5px 10px;
   border-radius: 5px;
+  max-width: 100%;
 }
+
+.text-content p {
+  max-width: 500px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
 .text-content span {
   font-size: 10px;
   color: rgb(91, 90, 90);
