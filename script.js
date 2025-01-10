@@ -14,6 +14,11 @@ let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 // Function to load tasks from local storage
 function loadTasks() {
   taskList.innerHTML = "";
+
+  if (tasks.length === 0) {
+    taskList.innerHTML = `<p class="no-task">No tasks found.</p>`;
+  }
+
   tasks.forEach((task) => {
     const newTaskElement = document.createElement("div");
     newTaskElement.classList.add("task");
@@ -81,6 +86,11 @@ filterCategory.addEventListener("change", (e) => {
   const tasksToBeShown = tasks.filter(
     (task) => task.categories === e.target.value
   );
+
+  if (tasksToBeShown.length === 0) {
+    taskList.innerHTML = `<p class="no-task">No tasks found for this category.</p>`;
+  }
+
   tasksToBeShown.forEach((task) => {
     const newTaskElement = document.createElement("div");
     newTaskElement.classList.add("task");
