@@ -75,7 +75,6 @@ taskList.addEventListener("click", (event) => {
     const taskDiv = event.target.closest(".task");
 
     const taskText = taskDiv.querySelector(".text-content p").textContent;
-    console.log(taskText);
 
     tasks = tasks.filter((task) => task.task !== taskText);
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -111,15 +110,25 @@ filterCategory.addEventListener("change", (e) => {
     const newTaskElement = document.createElement("div");
     newTaskElement.classList.add("task");
 
+    const textContent = document.createElement("div");
+    textContent.classList.add("text-content");
+    const categories = document.createElement("span");
+
     const taskText = document.createElement("p");
     taskText.textContent = `${task.task}`;
+    categories.textContent = `${task.categories}`;
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete");
     deleteButton.textContent = "Delete";
 
-    newTaskElement.appendChild(taskText);
+    textContent.appendChild(taskText);
+    textContent.appendChild(categories);
+
+    newTaskElement.appendChild(textContent);
     newTaskElement.appendChild(deleteButton);
+
+    console.log(newTaskElement);
 
     taskList.appendChild(newTaskElement);
   });
