@@ -87,8 +87,12 @@ filterCategory.addEventListener("change", (e) => {
     (task) => task.categories === e.target.value
   );
 
-  if (tasksToBeShown.length === 0) {
+  if (tasksToBeShown.length === 0 && e.target.value !== "All") {
     taskList.innerHTML = `<p class="no-task">No tasks found for this category.</p>`;
+  }
+
+  if (e.target.value === "All") {
+    loadTasks();
   }
 
   tasksToBeShown.forEach((task) => {
