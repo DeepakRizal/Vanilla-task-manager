@@ -23,15 +23,25 @@ function loadTasks() {
     const newTaskElement = document.createElement("div");
     newTaskElement.classList.add("task");
 
+    const textContent = document.createElement("div");
+    textContent.classList.add("text-content");
+    const categories = document.createElement("span");
+
     const taskText = document.createElement("p");
     taskText.textContent = `${task.task}`;
+    categories.textContent = `${task.categories}`;
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete");
     deleteButton.textContent = "Delete";
 
-    newTaskElement.appendChild(taskText);
+    textContent.appendChild(taskText);
+    textContent.appendChild(categories);
+
+    newTaskElement.appendChild(textContent);
     newTaskElement.appendChild(deleteButton);
+
+    console.log(newTaskElement);
 
     taskList.appendChild(newTaskElement);
   });
@@ -62,10 +72,12 @@ addTask.addEventListener("click", () => {
 // Logic to delete a task
 taskList.addEventListener("click", (event) => {
   if (event.target.classList.contains("delete")) {
-    const taskItem = event.target.closest(".task");
-    const itemToBeFiltered = event.target.previousElementSibling.textContent; // Get task name
+    const taskDiv = event.target.closest(".task");
 
-    tasks = tasks.filter((task) => task.task !== itemToBeFiltered);
+    const taskText = taskDiv.querySelector(".text-content p").textContent;
+    console.log(taskText);
+
+    tasks = tasks.filter((task) => task.task !== taskText);
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
     loadTasks(); // Reload the task list
