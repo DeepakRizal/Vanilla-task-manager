@@ -1,8 +1,8 @@
-const taskInput = document.querySelector(".task-input");
+const taskInput = document.querySelector(".task-input")!;
 const addTask = document.querySelector(".add-task");
-const taskList = document.querySelector(".task-list");
-const categoriesForm = document.querySelector(".categories");
-const filterCategory = document.querySelector(".filter-category");
+const taskList = document.querySelector(".task-list")!;
+const categoriesForm = document.querySelector(".categories")!;
+const filterCategory = document.querySelector(".filter-category")!;
 
 //types
 
@@ -66,58 +66,68 @@ function loadTasks() {
 loadTasks();
 
 // Logic to add a task
-addTask.addEventListener("click", () => {
-  if (taskInput.value.trim() === "") {
-    alert("Please input your task");
-    return;
-  }
+if (addTask) {
+  addTask.addEventListener("click", () => {
+    if (taskInput instanceof HTMLInputElement) {
+      if (taskInput.value.trim() === "") {
+        alert("Please input your task");
+        return;
+      }
 
-  const newTask = {
-    task: taskInput.value.trim(),
-    categories: task.categories,
-  };
+      const newTask = {
+        task: taskInput.value.trim(),
+        categories: task.categories,
+      };
 
-  tasks.push(newTask);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+      tasks.push(newTask);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
 
-  loadTasks(); // Reload the task list
-  taskInput.value = "";
-});
+      loadTasks(); // Reload the task list
+      taskInput.value = "";
+    }
+  });
+}
 
 // Logic to delete a task
 taskList.addEventListener("click", (event) => {
-  if (event.target.classList.contains("delete")) {
-    const taskDiv = event.target.closest(".task");
+  if (event.target instanceof HTMLElement) {
+    if (event.target?.classList.contains("delete")) {
+      const taskDiv = event.target.closest(".task");
 
-    const taskText = taskDiv.querySelector(".text-content p").textContent;
+      const taskText = taskDiv?.querySelector(".text-content p")?.textContent;
 
-    tasks = tasks.filter((task) => task.task !== taskText);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+      tasks = tasks.filter((task) => task.task !== taskText);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
 
-    loadTasks(); // Reload the task list
+      loadTasks(); // Reload the task list
+    }
   }
 });
 
 // Update task category
 categoriesForm.addEventListener("change", (event) => {
-  if (event.target.type === "radio") {
-    const selectedCategory = event.target.value;
-    task.categories = selectedCategory;
+  if (event.target instanceof HTMLInputElement) {
+    if (event.target?.type === "radio") {
+      const selectedCategory = event.target.value;
+      task.categories = selectedCategory;
+    }
   }
 });
 
 //filter
 filterCategory.addEventListener("change", (e) => {
   taskList.innerHTML = "";
-  const tasksToBeShown = tasks.filter(
-    (task) => task.categories === e.target.value
-  );
+  const target = e.target as HTMLSelectElement;
 
-  if (tasksToBeShown.length === 0 && e.target.value !== "All") {
+  const tasksToBeShown = tasks.filter((task) => {
+    return task.categories === target?.value;
+  });
+
+  if (tasksToBeShown.length === 0 && target?.value !== "All") {
     taskList.innerHTML = `<p class="no-task">No tasks found for this category.</p>`;
   }
 
-  if (e.target.value === "All") {
+  if (target?.value === "All") {
     loadTasks();
   }
 
