@@ -4,47 +4,62 @@ const taskList = document.querySelector(".task-list");
 const categoriesForm = document.querySelector(".categories");
 const filterCategory = document.querySelector(".filter-category");
 
-let task = {
+//types
+
+type taskType = {
+  task: string;
+  categories: string;
+};
+
+let task: taskType = {
   task: "",
   categories: "All",
 };
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let jsonData = localStorage.getItem("tasks");
+
+if (jsonData === null) {
+  jsonData = "[]";
+}
+
+let tasks: taskType[] = JSON.parse(jsonData) || [];
 
 // Function to load tasks from local storage
 function loadTasks() {
-  taskList.innerHTML = "";
+  if (taskList) {
+    taskList.innerHTML = "";
 
-  if (tasks.length === 0) {
-    taskList.innerHTML = `<p class="no-task">No tasks found.</p>`;
+    if (tasks.length === 0) {
+      taskList.innerHTML = `<p class="no-task">No tasks found.</p>`;
+    }
+
+    tasks.forEach((task) => {
+      const newTaskElement = document.createElement("div");
+      newTaskElement.classList.add("task");
+
+      const textContent = document.createElement("div");
+      textContent.classList.add("text-content");
+      const categories = document.createElement("span");
+
+      const taskText = document.createElement("p");
+      taskText.textContent = `${task.task}`;
+      categories.textContent = `category: ${task.categories}`;
+
+      const deleteButton = document.createElement("button");
+      deleteButton.classList.add("delete");
+      deleteButton.textContent = "Delete";
+
+      textContent.appendChild(taskText);
+      textContent.appendChild(categories);
+
+      newTaskElement.appendChild(textContent);
+      newTaskElement.appendChild(deleteButton);
+
+      console.log(newTaskElement);
+
+      taskList.appendChild(newTaskElement);
+    });
   }
-
-  tasks.forEach((task) => {
-    const newTaskElement = document.createElement("div");
-    newTaskElement.classList.add("task");
-
-    const textContent = document.createElement("div");
-    textContent.classList.add("text-content");
-    const categories = document.createElement("span");
-
-    const taskText = document.createElement("p");
-    taskText.textContent = `${task.task}`;
-    categories.textContent = `${task.categories}`;
-
-    const deleteButton = document.createElement("button");
-    deleteButton.classList.add("delete");
-    deleteButton.textContent = "Delete";
-
-    textContent.appendChild(taskText);
-    textContent.appendChild(categories);
-
-    newTaskElement.appendChild(textContent);
-    newTaskElement.appendChild(deleteButton);
-
-    console.log(newTaskElement);
-
-    taskList.appendChild(newTaskElement);
-  });
 }
 
 // Load tasks on page load

@@ -57,7 +57,7 @@
   color: rgb(91, 90, 90);
   font-style: italic;
   background-color: #ffffff;
-  padding: 1px;
+  padding: 1px 7px;
   border-radius: 5px;
 }
 
@@ -152,14 +152,23 @@
 
 .task-categories {
   margin-bottom: 10px;
+
+  width: 100%;
 }
 
-.task-categories,
 .categories {
-  display: flex;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
+.categories label {
   font-weight: bolder;
   font-size: 20px;
+  text-align: center; /* Centers text inside each label */
 }
 
 .filter-section {
